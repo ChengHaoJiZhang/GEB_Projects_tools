@@ -14,7 +14,7 @@ UDP_IP = "0.0.0.0"
 UDP_PORT = 12345
 BUFFER_SIZE = 2048
 
-TARGET_DEVICE = "G5_Endo" # Change to the group number
+TARGET_DEVICE = "G1_Endo" # Change to the group number
 
 object_NAME = "plane"   # RoboDK Object
 world_NAME  = "world"     # RoboDK Frame

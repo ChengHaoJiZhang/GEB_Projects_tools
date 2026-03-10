@@ -28,7 +28,7 @@ The **hardware setup** of this Lab session is based on:
   - SSID: Robotics_UB
   - Password: 
 - Hardware modules:
-  - PC control with roboDK program and python scripts (IP:192.168.1.x5)
+  - PC control with roboDK program and python scripts (IP:192.168.1.x5) 
   - Endo-module board with an ESP32 (IP:192.168.1.x2)
 
 The **software setup** of the first prototype of the DaVinci surgery system is based on:

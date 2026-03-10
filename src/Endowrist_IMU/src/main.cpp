@@ -6,7 +6,7 @@
 #include <IMU_RoboticsUB.h>   // Nom de la llibreria custom
 
 // Device ID
-const char *deviceId = "G5_Endo";
+const char *deviceId = "G1_Endo";
 
 // Wi-Fi credentials
 const char *ssid = "Robotics_UB";
@@ -19,7 +19,7 @@ int s3Status = HIGH;
 int s4Status = HIGH;
 
 // UDP settings
-IPAddress receiverComputerIP(192, 168, 1, 55);
+IPAddress receiverComputerIP(192, 168, 1, 15);
 const int udpPort = 12345;
 WiFiUDP udp;
 
