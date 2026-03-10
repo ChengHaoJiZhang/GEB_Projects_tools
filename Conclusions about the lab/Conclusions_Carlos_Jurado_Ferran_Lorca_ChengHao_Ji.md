@@ -15,8 +15,8 @@
 
 
 
-![Surgical Needle](<Documentation/Images/LAB IMAGES ESP32 3D PROJECTOR/SURGICAL NEEDLE.png>)
+![Surgical Needle](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/SURGICAL%20NEEDLE.png)
 
-![Plane and change of axis](<Documentation/Images/LAB IMAGES ESP32 3D PROJECTOR/PLANE AND CHANGE OF AXIS.png>)
+![Plane and change of axis](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/PLANE%20AND%20CHANGE%20OF%20AXIS.png)
 
-![Receive data python script](<Documentation/Images/LAB IMAGES ESP32 3D PROJECTOR/RECEIVE DATA PYTHON SCRIPT EXAMPLE.png>)
+![Receive data python script](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/RECEIVE%20DATA%20PYTHON%20SCRIPT%20EXAMPLE.png)
