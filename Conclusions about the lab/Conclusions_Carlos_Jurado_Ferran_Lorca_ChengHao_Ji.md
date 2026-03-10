@@ -14,9 +14,8 @@
 ### Is the orientation correct? why or why not?
 
 
+![Surgical Needle](../Documentation/Images/lab-images-esp32-3d-projector/surgical-needle.png)
 
-![Surgical Needle](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/SURGICAL%20NEEDLE.png)
+![Plane and change of axis](../Documentation/Images/lab-images-esp32-3d-projector/plane-change-axis.png)
 
-![Plane and change of axis](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/PLANE%20AND%20CHANGE%20OF%20AXIS.png)
-
-![Receive data python script](././Documentation/Images/LAB%20IMAGES%20ESP32%203D%20PROJECTOR/RECEIVE%20DATA%20PYTHON%20SCRIPT%20EXAMPLE.png)
+![Receive data python script](../Documentation/Images/lab-images-esp32-3d-projector/receive-data-python-script.png)
