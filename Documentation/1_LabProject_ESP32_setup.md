@@ -1,5 +1,5 @@
 # **GEB Projects tools setup**
-HOLA FERRAN 
+
 The objectives of this section are:
 - Setup an Engineering project in student's github
 - Review the needed tools
