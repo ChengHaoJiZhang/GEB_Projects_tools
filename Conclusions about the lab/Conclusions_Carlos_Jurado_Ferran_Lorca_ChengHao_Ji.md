@@ -3,7 +3,7 @@
 
 ## Your first operating performances diagnostic
 
-We first were familiarized with GitHub and Git commands to share a project while keeping backups. A fork of [GEB Projects Tools Repository](https://github.com/manelpuig/GEB_Projects_tools) was done and it was loaded locally using `git clone`. Then in `src\ESP32Test_Blink\src\main.cpp` was compiled and run on the device which made an led blink every second.
+We first were familiarized with GitHub and Git commands to share a project while keeping backups. A fork of [GEB Projects Tools Repository](https://github.com/manelpuig/GEB_Projects_tools) was done and it was loaded locally using `git clone`. Then in `src\ESP32Test_Blink\src\main.cpp` was compiled and run on the device which made a led blink every second.
 
 ## The corrections you have made in the code
 
@@ -19,7 +19,7 @@ The orientation of the plane was not correct, because when we rotated our xip ar
 
 ### - Make the necessary corrections in the code and verify the correct orientation in roboDK virtual environment.
 
-One way we found to solve this misorientation was to rotate the "z" axis by 90 degrees directly from the roboDK virtual environment, as it can be shown at the right of the image below. Once this was done, the plane was correctly oriented and rotating the xip around the "x" axis meant a rotation around the "x" of the virtual plane.
+One way we found to solve this misorientation was to rotate the "z" axis by 90 degrees directly from the roboDK virtual environment, as it can be shown at the right of the image below. Once this was done, the plane was correctly oriented and rotating the chip around the "x" axis meant a rotation around the "x" of the virtual plane.
 
 Also, the image shows in intense colors (red, blue and green) the three axis of the initial wrong ortientation, whilst in pale colors the new corrected axis. The same 90 degree change could probably be applied in the code when defining the axis, so it wouldn't need to be changed each time from the roboDK virtual environment.
 
