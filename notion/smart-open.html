@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Smart Open</title>
+<style>
+  html,body{
+    margin:0;padding:0;width:100%;height:100%;
+    background:#191919;overflow:hidden;
+  }
+  body{
+    display:flex;align-items:center;justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .grid{
+    width:176px;height:168px;
+    display:grid;
+    grid-template-columns:88px 88px;
+    grid-template-rows:84px 84px;
+    background:#191919;
+  }
+  a{
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
+  img{
+    display:block;object-fit:contain;
+    user-select:none;-webkit-user-drag:none;
+  }
+  .gemini img{width:58px;height:58px}
+  .chatgpt img{width:64px;height:64px}
+  .claude img{width:59px;height:59px}
+  .ios img{width:55px;height:55px}
+</style>
+</head>
+<body>
+<div class="grid">
+  <a class="gemini" data-target="https://gemini.google.com/" aria-label="Open Gemini">
+    <img src="https://img.icons8.com/fluent/96/gemini-ai.png" alt="Gemini">
+  </a>
+  <a class="chatgpt" data-target="https://chatgpt.com/" aria-label="Open ChatGPT">
+    <img src="https://img.icons8.com/fluent/96/chatgpt--v1.png" alt="ChatGPT">
+  </a>
+  <a class="claude" data-target="https://claude.ai/" aria-label="Open Claude">
+    <img src="https://img.icons8.com/fluent/96/claude-ai.png" alt="Claude">
+  </a>
+  <a class="ios" href="#" aria-label="iOS">
+    <img src="https://img.icons8.com/fluent/96/operating-system.png" alt="iOS">
+  </a>
+</div>
+
+<script>
+(function(){
+  function isIOSorIPadOS(){
+    var ua = navigator.userAgent || "";
+    return /iPhone|iPad|iPod/i.test(ua) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  }
+
+  function shortcutUrl(target){
+    return "shortcuts://run-shortcut?name=Smart%20Open&input=text&text=" +
+      encodeURIComponent(target);
+  }
+
+  document.querySelectorAll("[data-target]").forEach(function(link){
+    var target = link.getAttribute("data-target");
+    link.href = isIOSorIPadOS() ? shortcutUrl(target) : target;
+    link.target = "_top";
+  });
+
+  document.querySelector(".ios").addEventListener("click", function(e){
+    e.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>
