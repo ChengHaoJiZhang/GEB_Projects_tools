@@ -16,18 +16,18 @@
 (function(){
   const APPS = {
     spotify: {
+      ios: "https://openinapp.link/w93c0",
       native: "spotify:",
       web: "https://open.spotify.com/"
-    },
-    claude: {
-      native: "claude://claude.ai/new",
-      web: "https://claude.ai/new"
-    },
-    teams: {
-      native: "msteams://",
-      web: "https://teams.microsoft.com/"
     }
   };
+
+  function isIOSorIPadOS(){
+    const ua = navigator.userAgent || "";
+    return /iPhone|iPad|iPod/i.test(ua) ||
+      (/Macintosh/i.test(ua) && /Mobile/i.test(ua)) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  }
 
   const key = new URLSearchParams(location.search).get("app");
   const cfg = APPS[key];
@@ -37,29 +37,31 @@
     return;
   }
 
+  if (isIOSorIPadOS()) {
+    location.replace(cfg.ios);
+    return;
+  }
+
   let appOpened = false;
   let timer;
 
-  function cancelFallback(){
+  function markOpened(){
     appOpened = true;
     if (timer) clearTimeout(timer);
   }
 
   document.addEventListener("visibilitychange", function(){
-    if (document.hidden) cancelFallback();
+    if (document.hidden) markOpened();
   });
-  window.addEventListener("pagehide", cancelFallback);
+  window.addEventListener("pagehide", markOpened);
   window.addEventListener("blur", function(){
-    // A native protocol prompt/app switch may blur the page.
     setTimeout(function(){
-      if (document.hidden) cancelFallback();
+      if (document.hidden) markOpened();
     }, 100);
   });
 
-  // Try the installed native app first.
   location.href = cfg.native;
 
-  // If nothing handled the custom protocol, fall back to the normal web app.
   timer = setTimeout(function(){
     if (!appOpened && !document.hidden) location.replace(cfg.web);
   }, 1800);
