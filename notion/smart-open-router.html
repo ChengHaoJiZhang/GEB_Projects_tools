@@ -7,63 +7,90 @@
 <style>
   html,body{margin:0;width:100%;height:100%;background:#191919;color:#ddd;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
   body{display:flex;align-items:center;justify-content:center}
-  #msg{font-size:13px;opacity:.7}
+  #fallback{display:none;text-align:center;font-size:13px;line-height:1.5;padding:18px}
+  a{color:inherit}
 </style>
 </head>
 <body>
-<div id="msg">Opening…</div>
+<div id="fallback">
+  The app did not open.<br>
+  <a id="web" href="#">Open the web version</a>
+</div>
 <script>
 (function(){
-  const APPS = {
+  const apps = {
     spotify: {
-      ios: "https://openinapp.link/w93c0",
-      native: "spotify:",
-      web: "https://open.spotify.com/"
+      web: "https://open.spotify.com/",
+      windows: "spotify:",
+      ios: "spotify:"
+    },
+    teams: {
+      web: "https://teams.microsoft.com/",
+      windows: "msteams:",
+      ios: "msteams:"
+    },
+    chatgpt: {
+      web: "https://chatgpt.com/"
+    },
+    claude: {
+      web: "https://claude.ai/"
+    },
+    gemini: {
+      web: "https://gemini.google.com/"
+    },
+    gmail: {
+      web: "https://mail.google.com/"
+    },
+    drive: {
+      web: "https://drive.google.com/"
     }
   };
 
-  function isIOSorIPadOS(){
+  function platform(){
     const ua = navigator.userAgent || "";
-    return /iPhone|iPad|iPod/i.test(ua) ||
-      (/Macintosh/i.test(ua) && /Mobile/i.test(ua)) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (/iPhone|iPad|iPod/i.test(ua) ||
+        (/Macintosh/i.test(ua) && /Mobile/i.test(ua)) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) return "ios";
+    if (/Windows/i.test(ua)) return "windows";
+    return "other";
+  }
+
+  function shortcutUrl(target){
+    return "shortcuts://run-shortcut?name=Smart%20Open&input=text&text=" +
+      encodeURIComponent(target);
   }
 
   const key = new URLSearchParams(location.search).get("app");
-  const cfg = APPS[key];
+  const cfg = apps[key];
 
   if (!cfg) {
-    document.getElementById("msg").textContent = "Unknown app";
+    document.getElementById("fallback").style.display = "block";
+    document.getElementById("fallback").firstChild.textContent = "Unknown app";
     return;
   }
 
-  if (isIOSorIPadOS()) {
-    location.replace(cfg.ios);
-    return;
+  const p = platform();
+  let target;
+
+  if (p === "ios") {
+    // Use a native URI when we know it is supported on both platforms.
+    // Otherwise hand the normal web URL to the user's existing Smart Open Shortcut.
+    target = cfg.ios || shortcutUrl(cfg.web);
+  } else if (p === "windows") {
+    target = cfg.windows || cfg.web;
+  } else {
+    target = cfg.web;
   }
 
-  let appOpened = false;
-  let timer;
+  document.getElementById("web").href = cfg.web;
 
-  function markOpened(){
-    appOpened = true;
-    if (timer) clearTimeout(timer);
-  }
+  // Important: no automatic web fallback.
+  // An automatic timeout can open both the app and the browser.
+  location.replace(target);
 
-  document.addEventListener("visibilitychange", function(){
-    if (document.hidden) markOpened();
-  });
-  window.addEventListener("pagehide", markOpened);
-  window.addEventListener("blur", function(){
-    setTimeout(function(){
-      if (document.hidden) markOpened();
-    }, 100);
-  });
-
-  location.href = cfg.native;
-
-  timer = setTimeout(function(){
-    if (!appOpened && !document.hidden) location.replace(cfg.web);
+  // If the protocol is not handled, expose a manual fallback instead.
+  setTimeout(function(){
+    document.getElementById("fallback").style.display = "block";
   }, 1800);
 })();
 </script>
