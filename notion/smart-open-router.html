@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Open</title>
+<style>
+  html,body{margin:0;width:100%;height:100%;background:#191919;color:#ddd;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  body{display:flex;align-items:center;justify-content:center}
+  #msg{font-size:13px;opacity:.7}
+</style>
+</head>
+<body>
+<div id="msg">Opening…</div>
+<script>
+(function(){
+  const APPS = {
+    spotify: {
+      native: "spotify:",
+      web: "https://open.spotify.com/"
+    },
+    claude: {
+      native: "claude://claude.ai/new",
+      web: "https://claude.ai/new"
+    },
+    teams: {
+      native: "msteams://",
+      web: "https://teams.microsoft.com/"
+    }
+  };
+
+  const key = new URLSearchParams(location.search).get("app");
+  const cfg = APPS[key];
+
+  if (!cfg) {
+    document.getElementById("msg").textContent = "Unknown app";
+    return;
+  }
+
+  let appOpened = false;
+  let timer;
+
+  function cancelFallback(){
+    appOpened = true;
+    if (timer) clearTimeout(timer);
+  }
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) cancelFallback();
+  });
+  window.addEventListener("pagehide", cancelFallback);
+  window.addEventListener("blur", function(){
+    // A native protocol prompt/app switch may blur the page.
+    setTimeout(function(){
+      if (document.hidden) cancelFallback();
+    }, 100);
+  });
+
+  // Try the installed native app first.
+  location.href = cfg.native;
+
+  // If nothing handled the custom protocol, fall back to the normal web app.
+  timer = setTimeout(function(){
+    if (!appOpened && !document.hidden) location.replace(cfg.web);
+  }, 1800);
+})();
+</script>
+</body>
+</html>
