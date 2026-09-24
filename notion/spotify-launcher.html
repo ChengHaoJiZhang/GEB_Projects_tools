@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Spotify</title>
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;background:transparent;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+a{display:flex;align-items:center;justify-content:center;width:100%;height:100%;-webkit-tap-highlight-color:transparent}
+img{width:64px;height:64px;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
+</style>
+</head>
+<body>
+<a id="open" href="spotify:" target="_top" aria-label="Open Spotify">
+  <img src="https://img.icons8.com/color/96/spotify--v1.png" alt="Spotify">
+</a>
+<script>
+(function(){
+  const link=document.getElementById("open");
+  const web="https://open.spotify.com/";
+  let left=false;
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden) left=true; });
+  window.addEventListener("pagehide",()=>{ left=true; });
+
+  link.addEventListener("click",function(){
+    // spotify: is Spotify's registered URI scheme on iOS/iPadOS and desktop.
+    // If the OS accepts it, Spotify is brought to the foreground.
+    setTimeout(function(){
+      if(!left && document.visibilityState==="visible"){
+        // If no installed handler took over, fall back to Spotify Web.
+        try { window.top.location.href=web; } catch(e) { window.location.href=web; }
+      }
+    },2200);
+  });
+})();
+</script>
+</body>
+</html>
