@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/open/spotify",
-      "destination": "/api/open?app=spotify"
-    }
-  ]
-}
